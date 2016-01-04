@@ -13,47 +13,65 @@
 <body>
 	<form >
 		<label for="emailAddress">Enter Your Email Address</label><br>
-		<input type="text" id="email" name="email" placeholder="Please Enter Email" onkeyup="validateEmail()">
+		<input type="text" id="userEmail" name="email" placeholder="Please Enter Email" >
 		<span id="invalidMail" class="error"></span><br><br>
 
 		<label for="nickName">Enter Your Nick Name</label><br>
-		<input type="text" placeholder="Please Enter Nick Name" id="nick" onkeyup="checkLang()">
+		<input type="text" placeholder="Please Enter Nick Name" id="Demo">
 		<span id="invalidLanguage" class="error"></span>
 
 		
 	</form>
 </body>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+ <!-- // <script src="js/jquery-2.1.4.js"></script> -->
 <script type="text/javascript">
-function checkLang(){ //This function will run at onchange event
-	// alert('arrive');
-	var langInput=document.getElementById('nick').value;//Get the Nick Name from user
-	// var jpExp = /[\u3000-\u303F]|[\u3040-\u309F]|[\u30A0-\u30FF]|[\uFF00-\uFFEF]|[\u4E00-\u9FAF]|[\u2605-\u2606]|[\u2190-\u2195]|\u203B/g; //Regular Expression of Japanese
-	var jpExp=/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/g;
-	
-	if(!jpExp.test(langInput.charAt(0,langInput.length-1))) { //If it's not match with RegExp
-		document.getElementById("invalidLanguage").innerHTML = "Japanese Characters only";//Warn user to user only Japanese
-	}else{
-		document.getElementById("invalidLanguage").innerHTML = ""; //Show no warning if true;
-	}
-}
-
-function validateEmail() { //this function will run at onchange event
-	// alert('arrive');
-	var email=document.getElementById("email").value; //Get the Email from user
-	// alert(email);
-    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //Regular Expression to check whether it's correct email format or not
-
-   if(!re.test(email)){ 	//If it's not match with RegExp   	
-   	document.getElementById("invalidMail").innerHTML = "Invalid Mail"; //Warn user to use correct email format
-   }else{
-   	 document.getElementById("invalidMail").innerHTML = ""; //Show no warning if true;
-   }
-}
-//Code by Aung Ko Ko Myint Oo
+ //Code by Aung Ko Ko Myint Oo
 //QA
 //@2015
 
+ $(document).ready(function() {  
+
+
+ $('#userEmail').keyup(function(){ //This function will run at onchange event
+ 		var email=$('#userEmail').val(); // Get user input with new variable
+ 		// alert(email);
+ 		//Japanese RegEx
+	 	var emailRegex=/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	 	//Test with RegEx
+	 	if(!emailRegex.test(email)){  
+
+	 		//if it's not correct email format
+	 		//show error to user with inner html text
+	 		 $('#invalidMail').text('Invalid Mail Address');
+             } 
+             //Else
+             //if it's correct email format
+             //text will be cleared
+             else{
+             	$('#invalidMail').empty();
+             } 
+	 }); 
+
+ $('#Demo').bind('keyup', function() { //This function will run at onchange event
+
+ 		//Check use input value whether it's match with Japanese RegEx or not 
+       if($(this).val().match(/[^\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/g)){ 
+           
+           //if it's not Japanese characters
+           //warn to user he is using wrong language
+           $('#invalidLanguage').text('Japanese characters only');
+             } 
+             //Else
+             //if it's correct
+             //Clear the error message
+
+             else{
+             	$('#invalidLanguage').empty();
+             }                
+        });                         
+
+});
 
 
 </script>
