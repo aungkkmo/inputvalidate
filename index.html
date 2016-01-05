@@ -37,10 +37,11 @@
  		var email=$('#userEmail').val(); // Get user input with new variable
  		// alert(email);
  		//Japanese RegEx
+ 		//Want only the characters not similar with those following
 	 	var emailRegex=/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	 	//Test with RegEx
 	 	if(!emailRegex.test(email)){  
-
+	 		//
 	 		//if it's not correct email format
 	 		//show error to user with inner html text
 	 		 $('#invalidMail').text('Invalid Mail Address');
@@ -72,6 +73,8 @@
         });                         
 
 });
+//Code by Aung Ko Ko Myint Oo
+//Reference to Stackoverflow
 
 
 </script>
